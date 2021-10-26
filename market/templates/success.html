@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página de compra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/> 
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+  </head>
+  <body>
+    <!-- Header  -->
+    <header class="header">
+      <a href="#" class="logo">
+        <i class="fas fa-shopping-basket"></i> Almacén</a>
+      <nav class="navbar">
+        <a href="/inicio/">Volver al Inicio</a>
+      </nav>
+
+      <div class="icons">
+        <a href="/logout"><div class="fas fa-sign-out-alt" id="login-btn"></div></a>
+      </div>
+
+
+    </header>
+
+    <section class="confirmacion">
+      <h1 class="heading">Tu compra ha sido confirmada <span>{{usuario}}</span></h1>
+      <h1 class="heading">Puedes venir a retirar tu pedido directamente al negocio</h1>
+
+    </section>
+
+    <!-- footer  -->
+
+    <section class="footer">
+      <div class="box-container">
+        <div class="box">
+          <h3>groco <i class="fas fa-shopping-basket"></i></h3>
+          <p>
+            {{total}}
+          </p>
+          <div class="share">
+            <a href="#" class="fab fa-facebook-f"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-instagram"></a>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>Informacion de Contacto</h3>
+          <a href="#" class="links">
+            <i class="fas fa-phone"></i> +56 9 8765 4321
+          </a>
+          <a href="#" class="links">
+            <i class="fas fa-envelope"></i> almacen@gmail.com
+          </a>
+          <a href="#" class="links">
+            <i class="fas fa-map-marker-alt"></i> Calle 3 # 52, Pudahuel
+          </a>
+        </div>
+      </div>
+
+      <div class="credit">Diseñado por <span> Felipe Muñoz Aravena </span></div>
+    </section>
+    <script src="{% static 'js/order-confirmation.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/115c62b1cd.js" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+    <title>Panel de administración</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="/dashboard/">
+                        <span class="icon"><i class="fas fa-store"></i></span>
+                        <span class="title">Nombre Almacen</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/">
+                        <span class="icon"><i class="fas fa-cash-register"></i></span>
+                        <span class="title">Panel de Control</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/pedidos/">
+                        <span class="icon"><i class="fas fa-dolly-flatbed"></i></span>
+                        <span class="title">Pedidos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/clientes/">
+                        <span class="icon"><i class="fas fa-users"></i></span>
+                        <span class="title">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="title">Cerrar Sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Página de Inicio -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <!-- Busqueda -->
+                <div class="busqueda">
+                    <label>
+                        <input type="text" placeholder="¿Qué estás buscando?">
+                        <i class="fas fa-search"></i>
+                    </label>
+                </div>
+                <!-- Logo Usuario -->
+                <div class="usuario">
+                    <img src="{% static 'img/user.png' %}">
+                </div>
+            </div>
+
+            <!-- Cards -->
+            <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{pedidos.count}}</div>
+                        <div class="cardName">Ventas Totales</div>
+                    </div>
+                    <div class="iconBox">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        {% load humanize %}
+                        <div class="numbers">${{total|intcomma}}</div>
+                        <div class="cardName">Recaudación Total</div>
+                    </div>
+                    <div class="iconBox">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{en_proceso.count}}</div>
+                        <div class="cardName">Pedidos en proceso</div>
+                    </div>
+                    <div class="iconBox">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{clientes.count}}</div>
+                        <div class="cardName">Clientes registrados</div>
+                    </div>
+                    <div class="iconBox">
+                        <i class="fas fa-child"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de pedidos -->
+            <div class="pedidos">
+                <div class="pedidosRecientes">
+                    <div class="cardHeader">
+                        <h2>Pedidos Recientes</h2>
+                        <a href="pedidos/" class="btn">Ver Todos</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Nº Pedido</td>
+                                <td>Nombre Cliente</td>
+                                <td>Monto</td>
+                                <td>Pago</td>
+                                <td>Estado</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pedido in pedidos|slice:":11" %}
+                            <tr>
+                                <td>{{pedido.id}}</td>
+                                <td>{{pedido.cliente.nombre}}</td>
+                                <td>${{pedido.total}}</td>
+                                {% if pedido.pago == 1 %}
+                                <td><span class="to-pay">Pendiente</td></span>
+                                {% elif pedido.pago == 2 %}
+                                <td><span class="paid-out">Pagado</td></span>
+                                {% endif %}
+                                {% if pedido.estado == 1 %}
+                                <td><span class="status in-progress">En Preparación</span></td>
+                                {% elif pedido.estado == 2 %}
+                                <td><span class="status ready">Listo para entrega</span></td>
+                                {% elif pedido.estado == 3 %}
+                                <td><span class="status complete">Entregado</span></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Nuevos Clientes-->
+                <div class="clientesRecientes">
+                    <div class="cardHeader">
+                        <h2>Clientes registrados recientemente</h2>
+                        <a href="clientes/" class="btn">Ver Todos</a>
+                    </div>
+                    <table>
+                        {% for cliente in ultimos_clientes|slice:":10" %}
+                        <tr>
+                            <td width="60px"><div class="imgBox"><img src="{% static 'img/user.png' %}" alt=""></div></td>
+                            <td><h4>{{cliente.nombre.title}}<br><span>{{cliente.direccion}}</span></h4></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>

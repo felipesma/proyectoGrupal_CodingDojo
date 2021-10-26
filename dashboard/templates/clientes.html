@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/115c62b1cd.js" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/clientes.css' %}" />
+    <title>Panel de administración</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="/dashboard/">
+                        <span class="icon"><i class="fas fa-store"></i></span>
+                        <span class="title">Nombre Almacen</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/">
+                        <span class="icon"><i class="fas fa-cash-register"></i></span>
+                        <span class="title">Panel de Control</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/pedidos/">
+                        <span class="icon"><i class="fas fa-dolly-flatbed"></i></span>
+                        <span class="title">Pedidos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/clientes/">
+                        <span class="icon"><i class="fas fa-users"></i></span>
+                        <span class="title">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="title">Cerrar Sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Página de Inicio -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <!-- Busqueda -->
+                <div class="busqueda">
+                    <label>
+                        <input type="text" placeholder="¿Qué estás buscando?">
+                        <i class="fas fa-search"></i>
+                    </label>
+                </div>
+                <!-- Logo Usuario -->
+                <div class="usuario">
+                    <img src="{% static 'img/user.png' %}">
+                </div>
+            </div>
+
+            <!-- Lista de clientes-->
+            <div class="clientes">
+                <div class="clientesTodos">
+                    <div class="cardHeader">
+                        <h2>Clientes registrados</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Id Cliente</td>
+                                <td>Nombre</td>
+                                <td>Correo</td>
+                                <td>Dirección</td>
+                                <td>Telefono</td>
+                                <td>Nivel</td>
+                                <td>Acción</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cliente in clientes %}
+                            <tr>
+                                <td>{{cliente.id}}</td>
+                                <td>{{cliente.nombre}}</td>
+                                <td>{{cliente.email}}</td>
+                                <td>{{cliente.direccion}}</td>
+                                <td>{{cliente.telefono}}</td>
+                                {% if cliente.nivel == 1 %}
+                                <td><span class="status ready">Cliente</span></td>
+                                {% elif cliente.nivel == 9 %}
+                                <td><span class="status complete">Administrador</span></td>
+                                {% endif %}
+                                <td><a href="/dashboard/clientes/{{cliente.id}}/" class="btn">Editar</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>

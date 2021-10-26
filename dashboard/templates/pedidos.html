@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/115c62b1cd.js" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/pedidos.css' %}" />
+    <title>Panel de administración</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="/dashboard/">
+                        <span class="icon"><i class="fas fa-store"></i></span>
+                        <span class="title">Nombre Almacen</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/">
+                        <span class="icon"><i class="fas fa-cash-register"></i></span>
+                        <span class="title">Panel de Control</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/pedidos/">
+                        <span class="icon"><i class="fas fa-dolly-flatbed"></i></span>
+                        <span class="title">Pedidos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/clientes/">
+                        <span class="icon"><i class="fas fa-users"></i></span>
+                        <span class="title">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="title">Cerrar Sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Página de Inicio -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <!-- Busqueda -->
+                <div class="busqueda">
+                    <label>
+                        <input type="text" placeholder="¿Qué estás buscando?">
+                        <i class="fas fa-search"></i>
+                    </label>
+                </div>
+                <!-- Logo Usuario -->
+                <div class="usuario">
+                    <img src="{% static 'img/user.png' %}">
+                </div>
+            </div>
+
+            <!-- Lista de pedidos -->
+            <div class="pedidos">
+                <div class="pedidosTodos">
+                    <div class="cardHeader">
+                        <h2>Todos los Pedidos</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Nº Pedido</td>
+                                <td>Nombre Cliente</td>
+                                <td>Monto</td>
+                                <td>Pago</td>
+                                <td>Estado</td>
+                                <td>Ver</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pedido in pedidos %}
+                            <tr>
+                                <td>{{pedido.id}}</td>
+                                <td>{{pedido.cliente.nombre}}</td>
+                                <td>${{pedido.total}}</td>
+                                {% if pedido.pago == 1 %}
+                                <td><span class="to-pay">Pendiente</td></span>
+                                {% elif pedido.pago == 2 %}
+                                <td><span class="paid-out">Pagado</td></span>
+                                {% endif %}
+                                {% if pedido.estado == 1 %}
+                                <td><span class="status in-progress">En Preparación</span></td>
+                                {% elif pedido.estado == 2 %}
+                                <td><span class="status ready">Listo para entrega</span></td>
+                                {% elif pedido.estado == 3 %}
+                                <td><span class="status complete">Entregado</span></td>
+                                {% endif %}
+                                <td><a href="/dashboard/pedidos/{{pedido.id}}/" class="btn">Ver Pedido</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>

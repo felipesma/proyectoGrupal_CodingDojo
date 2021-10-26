@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página de compra</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/> 
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/market.css' %}">
+  </head>
+  <body>
+    <!-- Header  -->
+    <header class="header">
+      <a href="#" class="logo">
+        <i class="fas fa-shopping-basket"></i> Almacén</a>
+      <nav class="navbar">
+        <a href="#home">Inicio</a>
+        <a href="#categorias">Categorias</a>
+        <a href="#productos">Productos</a> 
+        <a href="#blogs">Pedidos</a>
+      </nav>
+
+      <div class="icons">
+        <div class="fas fa-bars" id="menu-btn"></div>
+        <div class="fas fa-search" id="search-btn"></div>
+        <div class="fas fa-shopping-cart" id="cart-btn"></div>
+        <a href="/logout"><div class="fas fa-sign-out-alt" id="login-btn"></div></a>
+      </div>
+
+      <form action="" class="search-form">
+        <input type="search" id="search-box" placeholder="¿Qué buscas hoy?" />
+        <label for="search-box" class="fas fa-search"></label>
+      </form>
+
+      <div class="shopping-cart">
+          <div class='shopping-cart-container'>
+          </div>
+          <div class='total'>Total : $<span class='shoppingCartTotal'>0</span></div>
+          <a class='btn pagar'>Pagar</a>
+      </div>
+          <form action='compra/' method='POST' class='formShopping' id='compra'>
+            {% csrf_token %}
+            <input type='hidden' name='compraTotal' class='compraTotal' value=''>
+            <input type='hidden' name='pagoTotal' class='pagoTotal' value=''>
+          </form>
+          
+      
+
+    </header>
+
+    <!-- Inicio -->
+
+    <section class="home" id="home">
+      <div class="content">
+        <h3>Compra <span>rápida</span> en tu negocio local</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
+          libero nostrum veniam facere tempore nisi.
+        </p>
+        <a href="#productos" class="btn">Comprar ahora</a>
+      </div>
+    </section>
+
+    <!-- features  -->
+
+    <h1 class="heading">Que gusto verte<span>{{usuario.nombre}}</span>!</h1>
+
+    <section class="features" id="features">
+      <h1 class="heading">Te<span>ofrecemos</span></h1>
+
+      <div class="box-container">
+        <div class="box">
+          <img src="{% static 'img/feature-img-1.png' %}" alt="" />
+          <h3>Productos frescos y económicos</h3>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
+            earum!
+          </p>
+        </div>
+
+        <div class="box">
+          <img src="{% static 'img/feature-img-2.png' %}" alt="" />
+          <h3>Retira de inmediato en el local</h3>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
+            earum!
+          </p>
+        </div>
+
+        <div class="box">
+          <img src="{% static 'img/feature-img-3.png' %}"" alt="" />
+          <h3>Paga fácil desde tu hogar</h3>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
+            earum!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categorias  -->
+
+    <section class="shop" id="categorias">
+        <h1 class="heading"><span>Categorias</span> de productos</h1>
+        <div class="box-container">
+          {% for categoria in categorias %}
+          <div class="box">
+            <img src="/static/img/{{categoria.nombre}}.png" alt="" />
+            <h3>{{categoria.nombre}}</h3>
+            <p>Frescos y económicos</p>
+            <a href="#{{categoria.nombre}}" class="btn">Comprar</a>
+          </div>
+          {% endfor %}
+        </div>
+    </section>
+
+    <!-- Productos  -->
+
+    <section class="shop" id="productos">
+      <h1 class="heading">Nuestros <span>Productos</span></h1>
+
+      {% for categoria in categorias %}
+      <h2 class="heading cat"><span id="{{categoria.nombre}}">{{categoria.nombre}}</span></h2>
+        <div class="box-container">
+        {% for producto in categoria.productos.all%}
+          <div class="box">
+            <img src="/static/img/{{producto.producto}}.png" alt="" class="img" />
+            <h3 class="product">{{producto.producto}}</h3>
+            <div class="item-price">$<span class="price">{{producto.precio}}</span>/ Kilo</div>
+            <span class="item-quantity">Ctd: <input class='quantity' type='number' value='1' /></span>
+            <a class="addToCart">Añadir al carro</a>
+          </div>
+        {% endfor %}
+        </div>
+      {% endfor %}      
+    </section>
+
+    <!-- footer  -->
+
+    <section class="footer">
+      <div class="box-container">
+        <div class="box">
+          <h3>groco <i class="fas fa-shopping-basket"></i></h3>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam,
+            saepe.
+          </p>
+          <div class="share">
+            <a href="#" class="fab fa-facebook-f"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-instagram"></a>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>Informacion de Contacto</h3>
+          <a href="#" class="links">
+            <i class="fas fa-phone"></i> +56 9 8765 4321
+          </a>
+          <a href="#" class="links">
+            <i class="fas fa-envelope"></i> almacen@gmail.com
+          </a>
+          <a href="#" class="links">
+            <i class="fas fa-map-marker-alt"></i> Calle 3 # 52, Pudahuel
+          </a>
+        </div>
+      </div>
+
+      <div class="credit">Diseñado por <span> Felipe Muñoz Aravena </span></div>
+    </section>
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/market.js' %}"></script>
+  </body>
+</html>

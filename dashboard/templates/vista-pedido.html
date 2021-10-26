@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/115c62b1cd.js" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/vista-pedido.css' %}" />
+    <title>Panel de administración</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="/dashboard/">
+                        <span class="icon"><i class="fas fa-store"></i></span>
+                        <span class="title">Nombre Almacen</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/">
+                        <span class="icon"><i class="fas fa-cash-register"></i></span>
+                        <span class="title">Panel de Control</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/pedidos/">
+                        <span class="icon"><i class="fas fa-dolly-flatbed"></i></span>
+                        <span class="title">Pedidos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/clientes/">
+                        <span class="icon"><i class="fas fa-users"></i></span>
+                        <span class="title">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="title">Cerrar Sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Página de Inicio -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <!-- Busqueda -->
+                <div class="busqueda">
+                    <label>
+                        <input type="text" placeholder="¿Qué estás buscando?">
+                        <i class="fas fa-search"></i>
+                    </label>
+                </div>
+                <!-- Logo Usuario -->
+                <div class="usuario">
+                    <img src="{% static 'img/user.png' %}">
+                </div>
+            </div>
+            <!-- Vista de pedido -->
+            <div class="pedidos">
+                <div class="vistaPedido">
+                    <div class="cardHeader">
+                        <h2>Pedido Nº {{pedido.id}} de cliente {{pedido.cliente.nombre}}</h2>
+                    </div>
+                    <div class="wrapper">
+                        <div class="title">
+                          Actualiza el estado del Pedido
+                        </div>
+                        <form action="/dashboard/pedidos/{{pedido.id}}/editar/" method="POST" class="form">
+                            {% csrf_token %}
+                            <div class="inputfield">
+                              <label>Estado del Pago</label>
+                              <div class="custom_select">
+                                <select name="pago">
+                                  <option value="1">Pendiente</option>
+                                  <option value="2">Pagado</option>
+                                </select>
+                              </div>
+                            </div> 
+                            <div class="inputfield">
+                            <label>Gender</label>
+                            <div class="custom_select">
+                              <select name="estado">
+                                <option value="1">En preparación</option>
+                                <option value="2">Listo para entrega</option>
+                                <option value="3">Entregado</option>
+                              </select>
+                            </div>
+                            </div> 
+                        <div class="inputfield">
+                            <input type="submit" value="Actualizar" class="btn-update">
+                        </form>
+                        <form action="/dashboard/pedidos/{{pedido.id}}/borrar/" method="POST" class="form">
+                            {% csrf_token %}
+                            <input type="submit" value="Eliminar Pedido" class="btn-delete">
+                        </form>                         
+                        </div> 
+                    </div>	
+                    <section class="mostrar-compra">
+                        <div class="compra-total">
+                          {{pedido.productos}}
+                        </div>
+                    </section>
+                </div>
+            </div>
+    <script src="{% static 'js/vista-pedido.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/115c62b1cd.js" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/editar-usuario.css' %}" />
+    <title>Panel de administración</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="/dashboard/">
+                        <span class="icon"><i class="fas fa-store"></i></span>
+                        <span class="title">Nombre Almacen</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/">
+                        <span class="icon"><i class="fas fa-cash-register"></i></span>
+                        <span class="title">Panel de Control</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/pedidos/">
+                        <span class="icon"><i class="fas fa-dolly-flatbed"></i></span>
+                        <span class="title">Pedidos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/clientes/">
+                        <span class="icon"><i class="fas fa-users"></i></span>
+                        <span class="title">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="title">Cerrar Sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Página de Inicio -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <!-- Busqueda -->
+                <div class="busqueda">
+                    <label>
+                        <input type="text" placeholder="¿Qué estás buscando?">
+                        <i class="fas fa-search"></i>
+                    </label>
+                </div>
+                <!-- Logo Usuario -->
+                <div class="usuario">
+                    <img src="{% static 'img/user.png' %}">
+                </div>
+            </div>
+            <!-- Actualizar Usuario -->
+            <div class="usuarios">
+                <div class="vistaUsuario">
+                    <div class="cardHeader">
+                        <h2>Actualiza los datos del usuario {{cliente.nombre}}</h2>
+                    </div>
+                    <div class="wrapper">
+                        <div class="title">
+                          Información de usuario
+                        </div>
+                        <form action="/dashboard/clientes/{{cliente.id}}/editar/" method="POST" class="form">
+                            {% csrf_token %}
+                            <div class="inputfield">
+                                <label>Nombre:</label>
+                                <input type="text" class="input" name="nombre" value="{{cliente.nombre}}">
+                            </div> 
+                            <div class="inputfield">
+                                <label>Correo Electrónico:</label>
+                                <input type="text" class="input" name="email" value="{{cliente.email}}">
+                            </div>  
+                            <div class="inputfield">
+                                <label>Dirección:</label>
+                                <input type="text" class="input" name="direccion" value="{{cliente.direccion}}">
+                            </div> 
+                            <div class="inputfield">
+                                <label>Teléfono:</label>
+                                <input type="text" class="input" name="telefono" value="{{cliente.telefono}}">
+                            </div> 
+                            <div class="inputfield">
+                                <label>Actualizar Contraseña:</label>
+                                <input type="password" class="input" name="password" placeholder="(OPCIONAL) Ingrese nueva contraseña">
+                            </div> 
+                            <div class="inputfield">
+                              <label>Nivel de Usuario:</label>
+                              <div class="custom_select">
+                                <select name="nivel">
+                                {% if cliente.nivel == 1 %}
+                                    <option value="1" selected>Cliente</option>
+                                    <option value="9">Administrador</option>
+                                {% elif cliente.nivel == 9 %}
+                                <option value="1">Cliente</option>
+                                <option value="9" selected>Administrador</option>
+                                {% endif %}
+                                </select>
+                              </div>
+                           </div>  
+                          <div class="inputfield">
+                            <input type="submit" value="Actualizar" class="btn-update">
+                        </form>
+                        <form action="/dashboard/clientes/{{cliente.id}}/borrar/" method="POST" class="form">
+                            {% csrf_token %}
+                            <input type="submit" value="Eliminar Usuario" class="btn-delete">
+                        </form>
+                    </div>	
+                </div>
+            </div>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>

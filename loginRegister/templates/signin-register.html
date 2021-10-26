@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/115c62b1cd.js"
+      crossorigin="anonymous"
+    ></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Inicio Sesión y Registro</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="container-formulario">
+        <div class="registro-inicio">
+          <form action="/login/" method="POST" class="inicio-sesion">
+            {% csrf_token %}
+            <h2 class="titulo">Inicia tu sesión</h2>
+            <div class="input-field">
+              <i class="fas fa-user-check"></i>
+              <input type="text" placeholder="Correo Electrónico" name="email" id="email"/>
+            </div>
+            {% if messages %}
+              <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            <div class="input-field">
+              <i class="fas fa-key"></i>
+              <input type="password" placeholder="Contraseña" name="password" id="password"/>
+            </div>
+            <input type="submit" value="Iniciar" class="btn solid" />
+
+            <p class="social-network">O inicia sesión con tu cuenta de:</p>
+            <div class="network">
+              <a href="#" class="network-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="network-icon">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="network-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="#" class="network-icon">
+                <i class="fab fa-apple"></i>
+              </a>
+            </div>
+          </form>
+          <form action="/register/" method="POST" class="registro">
+            {% csrf_token %}
+            <h2 class="titulo">Registra una nueva cuenta</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Nombre (con almenos un apellido)" id="nombre" name="nombre"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="text" placeholder="Correo Electrónico" id="email" name="email"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-route"></i>
+              <input type="text" placeholder="Dirección" id="direccion" name="direccion"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-mobile-alt"></i>
+              <input type="text" placeholder="Teléfono/Celular" id="telefono" name="telefono"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-key"></i>
+              <input type="password" placeholder="Contraseña" id="password" name="password"/>
+            </div>
+            <ul class="messages">    
+              {% for message in messages %}    
+                  <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+              {% endfor %}
+          </ul>
+            <div class="input-field">
+              <i class="fas fa-key"></i>
+              <input type="password" placeholder="Confirme su contraseña" id="password_confirmation" name="password_confirmation"/>
+            </div>
+            <input type="submit" value="Registrar" class="btn solid" />
+
+            <p class="social-network">O registrate con tu cuenta de:</p>
+            <div class="network">
+              <a href="#" class="network-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="network-icon">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="network-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="#" class="network-icon">
+                <i class="fab fa-apple"></i>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="paneles-container">
+        <div class="panel left-panel">
+          <div class="contenido">
+            <h3>¿Primera vez comprando en este negocio?</h3>
+            <p>
+              Información del negocio - Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Labore reiciendis ab quia necessitatibus.
+              Numquam eligendi excepturi exercitationem illum inventore
+              repudiandae eum cupiditate, quidem sapiente, error consectetur
+              culpa eveniet tempora. Neque?
+            </p>
+            <button class="btn transparente registro-btn">Registrate!</button>
+          </div>
+
+          <img
+            src="{% static 'img/inicio.svg' %}"
+            class="imagen"
+            alt="Compra en este negocio"
+          />
+        </div>
+        <div class="panel right-panel">
+          <div class="contenido">
+            <h3>¿Ya eres cliente de este negocio?</h3>
+            <p>
+              Información del negocio - Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Labore reiciendis ab quia necessitatibus.
+              Numquam eligendi excepturi exercitationem illum inventore
+              repudiandae eum cupiditate, quidem sapiente, error consectetur
+              culpa eveniet tempora. Neque?
+            </p>
+            <button class="btn transparente iniciar-sesion-btn">
+              Inicia sesión!
+            </button>
+          </div>
+
+          <img
+            src="{% static 'img/registro.svg' %}"
+            class="imagen"
+            alt="Compra en este negocio"
+          />
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/login-register.js' %}"></script>
+  </body>
+</html>
