@@ -179,6 +179,8 @@ section{
     box-shadow: var(--box-shadow);
     width:35rem;
     background: #fff;
+    max-height: 70vh;
+    overflow-y: scroll;
 }
 
 .header .shopping-cart.active{
