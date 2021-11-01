@@ -382,3 +382,11 @@ form {
         left: 50%;
     }
 }
+
+.bg-error{
+    background-color: hsla(0, 99%, 41%, 0.877);
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px auto;
+}
