@@ -27,14 +27,13 @@ def register(request):
         if 'loginError' in request.session:
             del request.session['loginError'] 
         request.session['registerError'] = True 
-        return redirect('/main/')
-
+        return redirect('/inicio')
     else: 
         if request.method == 'POST':
             password = bcrypt.hashpw(request.POST["password"].encode(), bcrypt.gensalt()).decode()
             length_users = Usuario.objects.all()
             if 'loginError' in request.session:
-                    del request.session['loginError']
+                del request.session['loginError']
             if 'registerError' in request.session:
                 del request.session['registerError']
             if len(length_users) == 0:
