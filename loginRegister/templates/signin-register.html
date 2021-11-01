@@ -23,10 +23,10 @@
               <i class="fas fa-user-check"></i>
               <input type="text" placeholder="Correo Electrónico" name="email" id="email"/>
             </div>
-            {% if messages %}
+            {% if request.session.loginError %}
               <ul class="messages">
                 {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                 {% endfor %}
               </ul>
             {% endif %}
@@ -75,11 +75,13 @@
               <i class="fas fa-key"></i>
               <input type="password" placeholder="Contraseña" id="password" name="password"/>
             </div>
+            {% if request.session.registerError %}
             <ul class="messages">    
               {% for message in messages %}    
                   <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
               {% endfor %}
-          </ul>
+            </ul>
+            {% endif %}
             <div class="input-field">
               <i class="fas fa-key"></i>
               <input type="password" placeholder="Confirme su contraseña" id="password_confirmation" name="password_confirmation"/>
