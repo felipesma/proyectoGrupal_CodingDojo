@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import validate_email
+import re
 
 # Create your models here.
 
@@ -9,6 +11,20 @@ class UserManager(models.Manager):
             errors['password_match'] = "Las constraseñas no coinciden, favor reintente."
         if len(postData['password']) < 8:
             errors['len_password'] = "La contraseña debe tener al menos 8 carácteres."
+        if len(postData['nombre']) < 1:
+             errors["nombre"] = "Nombre no puede estar en blanco"            
+        if len(postData['direccion']) < 1 :
+            errors["direccion"] = "Direccion no puede estar en blanco"
+        if len(postData['telefono']) < 1 :
+            errors["telefono"] = "Telefono no puede estar en blanco"
+        if len(postData['email']) < 1 :
+            errors["email"] = "Email no puede estar en blanco"
+        user = self.filter(email=postData['email'])
+        if user:
+            errors["email"] = "ya existe el email"
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        if not EMAIL_REGEX.match(postData['email']):    # probar si un campo coincide con el patrón        
+            errors['email'] = "Formato de correo incorrecto!"
         return errors
 
 class Usuario(models.Model):

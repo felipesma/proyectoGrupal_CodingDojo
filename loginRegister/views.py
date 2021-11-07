@@ -24,12 +24,18 @@ def register(request):
     if len(errors) > 0:
         for k, v in errors.items():
             messages.error(request, v)
-        return redirect('/main/')
-
+        if 'loginError' in request.session:
+            del request.session['loginError'] 
+        request.session['registerError'] = True 
+        return redirect('/inicio')
     else: 
         if request.method == 'POST':
             password = bcrypt.hashpw(request.POST["password"].encode(), bcrypt.gensalt()).decode()
             length_users = Usuario.objects.all()
+            if 'loginError' in request.session:
+                del request.session['loginError']
+            if 'registerError' in request.session:
+                del request.session['registerError']
             if len(length_users) == 0:
                 Usuario.objects.create(nombre=request.POST['nombre'], email=request.POST['email'], direccion=request.POST['direccion'], telefono=request.POST['telefono'],password=password, nivel=9)
             else:
@@ -47,14 +53,24 @@ def login(request):
                 request.session['email'] = request.POST["email"]
                 logued = Usuario.objects.get(email=request.session['email'])
                 nivel_logued = logued.nivel
+                if 'loginError' in request.session:
+                    del request.session['loginError']
                 if nivel_logued == 1:
                     return redirect('/inicio/')
                 else:
                     return redirect('/dashboard/')
             else:
+                if 'registerError' in request.session:
+                    del request.session['registerError']
+                request.session['loginError'] = True
+                print(request.session)
                 messages.error(request, 'La contraseña no coincide con el usuario, intente nuevamente')
                 return redirect('/main/')
         else:
+            if 'registerError' in request.session:
+                    del request.session['registerError']
+            request.session['loginError'] = True
+            print(request.session)
             messages.error(request, 'No existe usuario registrado con este correo electrónico.')
             return redirect('/main/')
 
