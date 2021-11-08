@@ -79,3 +79,34 @@ def logout(request):
         if request.session.get('email') != None:
             request.session.flush()
             return redirect('/')
+
+
+def profile(request, id):
+    user = Usuario.objects.get(id= id)
+    context={
+        'user': user
+    }
+    return render(request, 'profile.html', context)
+
+def update_profile(request, id):
+    user = Usuario.objects.get(id= id)
+    errors = Usuario.objects.basic_validator2(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/profile/{user.id}')
+    else:  
+        if request.method == 'POST':
+            user.nombre = request.POST['nombre']
+            user.direccion = request.POST['direccion']
+            user.telefono = request.POST['telefono']
+            if request.POST['password'] != "":
+                password = request.POST['password']
+                pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode() 
+                user.password = pw_hash
+            user.email = request.POST['email']
+            user.save()
+            messages.success(request, 'Información actualizada con éxito')
+            context= {'icon': 'success'}
+            return redirect(f'/profile/{user.id}', context)
+      

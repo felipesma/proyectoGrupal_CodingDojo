@@ -44,3 +44,4 @@ def success(request):
         return render(request, 'success.html', context=context)
     else:
         return redirect('/inicio/compra/')
+

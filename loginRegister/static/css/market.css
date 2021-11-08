@@ -123,6 +123,19 @@ section{
     text-align: center;
 }
 
+.profile{
+    height: 4.5rem;
+    width: 4.5rem;
+    line-height: 4.5rem;
+    border-radius: .5rem;
+    background: #eee;
+    color:var(--black);
+    font-size: 2rem;
+    margin-left: .3rem;
+    cursor: pointer;
+    text-align: center;
+}
+
 .header .icons div:hover{
     background: var(--green);
     color:#fff;
