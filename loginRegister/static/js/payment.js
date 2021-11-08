@@ -13,8 +13,4 @@ const paymentform = document.getElementById('payment-validator')
             const errorMsgp = document.getElementById('errorMessages2')
             errorMsgp.innerHTML = '<h1>*Password cannot be empty</h1>'
         }
-        else{
-            window.location.replace("http://localhost:8000/inicio/success");
-            console.log('No error')
-        }
     }
