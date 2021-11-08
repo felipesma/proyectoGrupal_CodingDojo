@@ -1,16 +1,18 @@
 
+{% load inlinecss %}
+{% inlinecss "css/style-email.css" %}
 <html>
     <head>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/> 
     </head>
     <body>
-        <!-- Header  -->
         <header class="header">
-              <i class="fas fa-shopping-basket"></i> Almacén
+            <a href="#" class="logo"> Almacén</a>
         </header>
-            <h1 class="heading">El usuario<span>{{usuario.nombre}}</span> ha realizado un pedido!!</h1>
+            <h1 class="heading">El usuario <span>{{usuario.nombre}}</span> ha realizado un pedido!!</h1>
             <h1 class="heading">Para ver detalles, entra al panel del control en el siguiente link:</h1>
     
-            <a href="http://127.0.0.1:8000/dashboard/pedidos/" class="btn pagar">Revisar Pedido</a>
+            <a href="http://127.0.0.1:8000/dashboard/pedidos/{{id_pedido}}" class="btn pagar">Revisar Pedido</a>
     </body>
-    </html>
+</html>
+{% endinlinecss %}

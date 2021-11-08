@@ -6,14 +6,17 @@ from django.core.mail import EmailMultiAlternatives
 
 # Create your views here.
 
-def send_email(email_user):
+def send_email(email_user, id_pedido):
     usuario = Usuario.objects.get(email=email_user)
     administradores = Usuario.objects.filter(nivel=9)
     admin_email = []
     for admin in administradores:
         admin_email.append(admin.email)
     print(admin_email)
-    context = {'usuario': usuario}
+    context = {
+        'usuario': usuario,
+        'id_pedido': id_pedido,
+    }
     template = get_template('email-order.html')
     content = template.render(context)
     email_send = EmailMultiAlternatives(
@@ -60,7 +63,8 @@ def success(request):
         nombre_usuario = usuario.nombre
         pedido = Pedido.objects.create(cliente=usuario, productos=request.session['compra'], total=int(request.session['total']))
         print(pedido)
-        send_email(request.session['email'])
+        print(pedido.id)
+        send_email(request.session['email'], pedido.id)
         context = {
             'usuario': nombre_usuario,
         }

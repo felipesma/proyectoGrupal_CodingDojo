@@ -1,16 +1,15 @@
+{% load inlinecss %}
+{% inlinecss "css/style-email.css" %}
 <html>
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/> 
 </head>
 <body>
-    <!-- Header  -->
     <header class="header">
-          <i class="fas fa-shopping-basket"></i> Almacén
+        <a href="#" class="logo"> Almacén</a>
     </header>
-        <h1 class="heading">Estimado <span>{{usuario.nombre}}</span>!</h1>
+        <h1 class="heading">Genial <span>{{usuario.nombre}}!</span>!</h1>
         <h1 class="heading">Ya puedes retirar tu compra en Almacen! Te están esperando con tu pedido listo.</h1>
         <h1 class="heading">Que lo disfrutes y vuelve pronto!</h1>
-
-
-        
 </html>
+{% endinlinecss %}
