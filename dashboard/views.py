@@ -4,8 +4,23 @@ from loginRegister.models import *
 import bcrypt
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
+from twilio.rest import Client
 
 # Create your views here.
+
+def send_sms(numero_cliente):
+    account_sid = 'ACf4078d6e201901c7ea7e3da29ef4bf85'
+    auth_token = 'afe68f1b7eea7b0f38e40db17623cc77'
+    client = Client(account_sid, auth_token)
+
+    message = client.messages \
+                    .create(
+                        body="Tu pedio realizado en ALMACEN está listo para ser retirado! Te esperamos en el negocio para que lo retires.",
+                        from_='+15157173081',
+                        to=numero_cliente
+                    )
+    print('SMS ENVIADO A CLIENTE', message.sid)
+
 
 def send_email(email):
     usuario = Usuario.objects.get(email=email)
@@ -85,10 +100,13 @@ def editarPedido(request, id):
         pedido = Pedido.objects.get(id=id)
         pedido.estado = request.POST['estado']
         pedido.pago = request.POST['pago']
+        numero_cliente = pedido.cliente.telefono
+        print(numero_cliente)
         pedido.save()
         if pedido.estado == '2':
             print('enviando mail')
             send_email(pedido.cliente.email)
+            send_sms(numero_cliente)
         return redirect('/dashboard/pedidos/')
     else:
         return redirect('/dashboard/pedidos/')
