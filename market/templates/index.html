@@ -129,7 +129,7 @@
             <img src="/static/img/{{producto.producto}}.png" alt="" class="img" />
             <h3 class="product">{{producto.producto}}</h3>
             <div class="item-price">$<span class="price">{{producto.precio}}</span>/ Kilo</div>
-            <span class="item-quantity">Ctd: <input class='quantity' type='number' value='1' /></span>
+            <span class="item-quantity">Ctd: <input class='quantity' type='number' min='1' value='1' /></span>
             <a class="addToCart">Añadir al carro</a>
           </div>
         {% endfor %}

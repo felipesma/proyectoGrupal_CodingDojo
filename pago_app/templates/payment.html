@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Página de compra</title>
+        <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/> 
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/pagostyle.css' %}">
+        <link rel="stylesheet" href="{% static 'css/success.css' %}">
+    </head>
+    <body>
+        <!-- Header  -->
+        <header class="header">
+            <a href="#" class="logo">
+            <i class="fas fa-shopping-basket"></i> Almacén</a>
+            <nav class="navbar">
+            <a href="/inicio/">Volver al Inicio</a>
+            </nav>
+    
+            <div class="icons">
+            <a href="/logout"><div class="fas fa-sign-out-alt" id="login-btn"></div></a>
+            </div>
+        </header>
+        <div id="payment-container">
+            <div id="payment-nav">
+                <img src="{% static 'img/paypal.png' %}" alt="" id="paypalImg"> 
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <hr>
+            <br>
+            <div id="form-container">
+                <p>Pay with PayPal</p>
+                <select name="language" id="selectOP">
+                    <option value="english">English</option>
+                    <option value="spanish">Spanish</option>
+                    <option value="german">German</option>
+                </select>
+                <br>
+                <form action="process/" method="POST" onsubmit="paymentValidator" id="payment-validator">
+                    {% csrf_token %}
+                    <input type="email" autocapitalize="none" name="email" id="paymentEmail" placeholder="  Email">
+                    <input type="password" name="password" minlength="4" id="paymentPassword" placeholder="  Password">
+                    <input type="submit" value="Log in to Paypal">
+                </form>
+                <br>
+                <a href="#">forgot your password?</a>
+                <br>
+                <div id='or-strings'>
+                    <hr width='50%'><p>or</p></hr><hr width='50%'></hr>
+                </div>
+                <br>
+                <button id="payment-btn">Pay widh Debit or Credit Card</button>
+                <div id="errorMessages1">
+                </div>
+                <div id="errorMessages2">
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'js/payment.js' %}"></script>
+    </body>
+</html>

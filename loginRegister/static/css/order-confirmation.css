@@ -210,9 +210,28 @@ section{
 
 .btn.pagar{
     width: 50%;
+    height: 8vh;
     margin:30px 0 100px 25%;
+    padding: 0;
+    position: relative;
 }
-
+.pagar input{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    z-index: 2;
+    background: transparent;
+    cursor: pointer;
+}
+.pagar i{
+    position: absolute;
+    right: 33%;
+    top: 5%;
+    z-index: 1;
+    font-size: 6.5rem;
+}
 
 .footer{
     margin-top: 5rem;
