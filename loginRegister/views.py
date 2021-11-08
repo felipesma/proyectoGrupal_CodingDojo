@@ -1,10 +1,28 @@
+from django.conf import settings
 from django.shortcuts import render, HttpResponse, redirect
 from loginRegister.models import *
 from django.contrib import messages
 import bcrypt
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
 
 # Create your views here.
 
+def send_email(email):
+    usuario = Usuario.objects.get(email=email)
+    context = {'usuario': usuario}
+    template = get_template('register-mail.html')
+    content = template.render(context)
+    email_send = EmailMultiAlternatives(
+        'Bienvenido a la App Almacen',
+        'Tu usuario ha sido registrado exitosamente',
+        settings.EMAIL_HOST_USER,
+        [email]
+    )
+    email_send.attach_alternative(content, 'text/html')
+    email_send.send()
+
+    
 def index(request):
     if request.session.get('email') != None:
         logued = Usuario.objects.get(email=request.session['email'])
@@ -41,6 +59,7 @@ def register(request):
             else:
                 Usuario.objects.create(nombre=request.POST['nombre'], email=request.POST['email'], direccion=request.POST['direccion'], telefono=request.POST['telefono'],password=password, nivel=1)  
             request.session['email']=request.POST['email']
+            send_email(request.session['email'])
             return redirect('/inicio/')
         else:
             return redirect('/main/')

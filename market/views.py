@@ -1,7 +1,32 @@
+from django.conf import settings
 from django.shortcuts import render, HttpResponse, redirect
 from loginRegister.models import *
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
 
 # Create your views here.
+
+def send_email(email_user, id_pedido):
+    usuario = Usuario.objects.get(email=email_user)
+    administradores = Usuario.objects.filter(nivel=9)
+    admin_email = []
+    for admin in administradores:
+        admin_email.append(admin.email)
+    print(admin_email)
+    context = {
+        'usuario': usuario,
+        'id_pedido': id_pedido,
+    }
+    template = get_template('email-order.html')
+    content = template.render(context)
+    email_send = EmailMultiAlternatives(
+        'Compra Realizada',
+        'Se ha realizado una compra',
+        settings.EMAIL_HOST_USER,
+        admin_email
+    )
+    email_send.attach_alternative(content, 'text/html')
+    email_send.send()
 
 def market(request):
     if request.session.get('email') == None:
@@ -38,6 +63,8 @@ def success(request):
         nombre_usuario = usuario.nombre
         pedido = Pedido.objects.create(cliente=usuario, productos=request.session['compra'], total=int(request.session['total']))
         print(pedido)
+        print(pedido.id)
+        send_email(request.session['email'], pedido.id)
         context = {
             'usuario': nombre_usuario,
         }

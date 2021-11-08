@@ -1,8 +1,25 @@
+from django.conf import settings
 from django.shortcuts import render, HttpResponse, redirect
 from loginRegister.models import *
 import bcrypt
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
 
 # Create your views here.
+
+def send_email(email):
+    usuario = Usuario.objects.get(email=email)
+    context = {'usuario': usuario}
+    template = get_template('confirmacion-pedido.html')
+    content = template.render(context)
+    email_send = EmailMultiAlternatives(
+        'Tu compra esta lista para ser retirada!',
+        'Alamecen ha preparado tu compra y se encuentra lista',
+        settings.EMAIL_HOST_USER,
+        [email]
+    )
+    email_send.attach_alternative(content, 'text/html')
+    email_send.send()
 
 def dashboard(request):
     if request.session.get('email') == None:
@@ -69,6 +86,9 @@ def editarPedido(request, id):
         pedido.estado = request.POST['estado']
         pedido.pago = request.POST['pago']
         pedido.save()
+        if pedido.estado == '2':
+            print('enviando mail')
+            send_email(pedido.cliente.email)
         return redirect('/dashboard/pedidos/')
     else:
         return redirect('/dashboard/pedidos/')
