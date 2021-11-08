@@ -30,7 +30,7 @@
                 Swal.fire({
                   icon: 'error',
                   title: "No se ha podido registrar",
-                  html: " <ul class='messages'> {% for message in messages %} <li {% if message.tags %} {% endif %}>{{ message }}</li> {% endfor %}</ul>"
+                  html: " <ul class='messages'> {% for message in messages %} <li>{{ message }}</li> {% endfor %}</ul>"
                 });   
             </script>
           {% endif %}
@@ -61,10 +61,9 @@
               <script>
                 Swal.fire({
                     icon: 'error',
-                    title: "No se ha podido registrar",
-                    html: " <ul class='messages'> {% for message in messages %} <li {% if message.tags %} {% endif %}>{{ message }}</li> {% endfor %}</ul>"
+                    title: "No ha podido iniciar sesión",
+                    html: "<ul class='messages'> {% for message in messages %} <li>{{ message }}</li> {% endfor %}</ul>"
                   });
-                  $("#registrate").trigger( "click" )
               </script>
             {% endif %}
             {% csrf_token %}

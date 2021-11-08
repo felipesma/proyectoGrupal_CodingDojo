@@ -24,9 +24,10 @@
 
       <div class="icons">
         <div class="fas fa-bars" id="menu-btn"></div>
-        <div class="fas fa-search" id="search-btn"></div>
-        <div class="fas fa-shopping-cart" id="cart-btn"></div>
-        <a href="/logout"><div class="fas fa-sign-out-alt" id="login-btn"></div></a>
+        <div class="fas fa-search" id="search-btn"  data-toggle="tooltip" data-placement="bottom" title="Buscar"></div>
+        <div class="fas fa-shopping-cart" id="cart-btn" data-toggle="tooltip" data-placement="bottom" title="Carrito"></div>
+        <a href="/logout"><div class="fas fa-sign-out-alt" id="login-btn" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"></div></a>
+        <a href="{% url 'profile' usuario.id %}"><i class="fas fa-user profile" data-toggle="tooltip" data-placement="bottom" title="Perfil"></i></a>
       </div>
 
       <form action="" class="search-form">
