@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('loginRegister.urls')),
     path('inicio/', include('market.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('payment/', include('pago_app.urls')),
 ]

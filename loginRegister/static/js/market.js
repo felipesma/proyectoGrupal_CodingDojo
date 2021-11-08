@@ -112,8 +112,15 @@ function pagarButtonClicked() {
     const totalPay = document.querySelector('.pagoTotal');
     shoppValue.value = pay;
     totalPay.value = total;
-    document.getElementById("compra").submit();
+    totalPay.value > 0?
+        document.getElementById("compra").submit():
+        null 
 }
 
 const pagarButton = document.querySelector('.pagar');
 pagarButton.addEventListener('click', pagarButtonClicked);
+
+const idSuccess = document.querySelector('#success')
+
+const paypalBtn = document.querySelector('#paypal-btn')
+paypalBtn.addEventListener('click', (e)=>{e.preventDefault();idSuccess.submit()})
