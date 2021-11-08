@@ -84,8 +84,6 @@ def editarPedido(request, id):
     if request.method == 'POST':
         pedido = Pedido.objects.get(id=id)
         pedido.estado = request.POST['estado']
-        print(pedido.estado)
-        print(pedido.cliente.email)
         pedido.pago = request.POST['pago']
         pedido.save()
         if pedido.estado == '2':
