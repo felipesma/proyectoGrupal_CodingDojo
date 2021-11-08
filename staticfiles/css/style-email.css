@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+    margin:0; padding:0;
+    box-sizing: border-box;
+    outline: none; border:none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+}
+
+body{
+    background:#eee;
+}
+
+section{
+    padding:2rem 9%;
+}
+
+.heading{
+    margin-top: 100px;
+    text-align: center;
+    padding:2rem 0;
+    padding-bottom: 3rem;
+    font-size: 3.5rem;
+    color:#130f40;
+}
+
+.cat{
+    margin: 5rem 0;
+}
+
+.cat:first-of-type{
+    margin-top: 2rem;
+}
+.heading span{
+    background: #01a11c;
+    color:#fff;
+    display: inline-block;
+    padding:.5rem 3rem;
+    clip-path: polygon(100% 0, 93% 50%, 100% 99%, 0% 100%, 7% 50%, 0% 0%);
+}
+
+.btn{
+    margin-top: 1rem;
+    display: block;
+    text-align: center;
+    padding:.8rem 3rem;
+    font-size: 3rem;
+    border-radius: .5rem;
+    border:.2rem solid #130f40;
+    color:#130f40;
+    cursor: pointer;
+    background: none;
+}
+
+.btn:hover
+{
+    background: #01a11c;
+    color:#fff;
+}
+
+.header{
+    position: fixed;
+    top:0; left:0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:2rem 9%;
+    background:#fff;
+    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1);
+}
+
+.header .logo{
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color:#130f40;
+}
+
+.header .logo i{
+    color:#01a11c;
+}
+
+.header .navbar a{
+    font-size: 3rem;
+    margin:0 1rem;
+    color:#130f40;
+}
+
+.header .navbar a:hover{
+    color:#01a11c;
+}
+
+.header .icons div{
+    height: 4.5rem;
+    width: 4.5rem;
+    line-height: 4.5rem;
+    border-radius: .5rem;
+    background: #eee;
+    color:#130f40;
+    font-size: 2rem;
+    margin-left: .3rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.header .icons div:hover{
+    background: #01a11c;
+    color:#fff;
+}
+
+
+.btn.pagar{
+    width: 50%;
+    margin:30px 0 100px 25%;
+    background-color:#01a11c;
+    color: #fff
+}
